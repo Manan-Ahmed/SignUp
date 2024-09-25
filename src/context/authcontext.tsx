@@ -13,7 +13,8 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 
 type UserType = {
     email: string | null,
-    uid: string
+    uid: string,
+    emailVerified: boolean
 }
 
 type AuthContextProviderType = {
@@ -39,7 +40,7 @@ export function AuthContextProvider({ children }: AuthContextProviderType) {
         onAuthStateChanged(auth, (loggedInUser) => {
             if (loggedInUser) {
                 const { email, uid,emailVerified } = loggedInUser;
-                setUser({ email, uid });
+                setUser({ email, uid,emailVerified });
                 if(emailVerified === true){
                     route.push("/home");
 
@@ -49,7 +50,7 @@ export function AuthContextProvider({ children }: AuthContextProviderType) {
   .then(() => {
    
     console.log('email sent',loggedInUser);
-    route.push('/Emailverified')
+    route.push('/emailverified')
 
     
   }).catch(()=>{
